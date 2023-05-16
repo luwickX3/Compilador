@@ -1,0 +1,13 @@
+C:\Users\Rodrigo Alexis\source\repos\ProyectoFinalSO2\ProyectoFinalSO2\bin\Debug\ProyectoFinalSO2.exe.config
+C:\Users\Rodrigo Alexis\source\repos\ProyectoFinalSO2\ProyectoFinalSO2\bin\Debug\ProyectoFinalSO2.exe
+C:\Users\Rodrigo Alexis\source\repos\ProyectoFinalSO2\ProyectoFinalSO2\bin\Debug\ProyectoFinalSO2.pdb
+C:\Users\Rodrigo Alexis\source\repos\ProyectoFinalSO2\ProyectoFinalSO2\obj\Debug\ProyectoFinalSO2.csproj.AssemblyReference.cache
+C:\Users\Rodrigo Alexis\source\repos\ProyectoFinalSO2\ProyectoFinalSO2\obj\Debug\ProyectoFinalSO2.csproj.SuggestedBindingRedirects.cache
+C:\Users\Rodrigo Alexis\source\repos\ProyectoFinalSO2\ProyectoFinalSO2\obj\Debug\ProyectoFinalSO2.Login.resources
+C:\Users\Rodrigo Alexis\source\repos\ProyectoFinalSO2\ProyectoFinalSO2\obj\Debug\ProyectoFinalSO2.Properties.Resources.resources
+C:\Users\Rodrigo Alexis\source\repos\ProyectoFinalSO2\ProyectoFinalSO2\obj\Debug\ProyectoFinalSO2.csproj.GenerateResource.cache
+C:\Users\Rodrigo Alexis\source\repos\ProyectoFinalSO2\ProyectoFinalSO2\obj\Debug\ProyectoFinalSO2.csproj.CoreCompileInputs.cache
+C:\Users\Rodrigo Alexis\source\repos\ProyectoFinalSO2\ProyectoFinalSO2\obj\Debug\ProyectoFinalSO2.exe
+C:\Users\Rodrigo Alexis\source\repos\ProyectoFinalSO2\ProyectoFinalSO2\obj\Debug\ProyectoFinalSO2.pdb
+C:\Users\Rodrigo Alexis\source\repos\ProyectoFinalSO2\ProyectoFinalSO2\obj\Debug\ProyectoFinalSO2.CreateUser.resources
+C:\Users\Rodrigo Alexis\source\repos\ProyectoFinalSO2\ProyectoFinalSO2\obj\Debug\ProyectoFinalSO2.MainMenu.resources
