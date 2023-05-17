@@ -8,17 +8,24 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Net.Security;
+using static System.Net.WebRequestMethods;
 
 namespace ProyectoFinalSO2
 {
     public partial class MainMenu : Form
     {
+        bool PalabraReservada;
+        bool Encontro;
+        int ValueCaracter = 0;
+        int columna = 0;
+        int estado = 0;
+        int direccion = 0;
+        String Caracter;
         String ArchivoEntrada = "";
         String ArchivoSalida = "";
         String wlinea;
-        String Caracter;
-        int columna = 0;
-        int estado = 0;
+        String wsalida;
         String Token = "";
         int Posicion = 0;
         String DireccionMatrices = "C:\\Users\\Rodrigo Alexis\\source\\repos\\ProyectoFinalSO2\\ProyectoFinalSO2\\Matrices y palabras reservadas\\Matrices";
@@ -288,6 +295,14 @@ namespace ProyectoFinalSO2
         {
             Abrir.ShowDialog();
             ArchivoEntrada = Abrir.FileName;
+            System.IO.StreamReader fileReader = new System.IO.StreamReader;
+            fileReader = My.Computer.FileSystem.OpenTextFileReader(archivo);
+            String stringReader;
+            while (!(fileReader.EndOfStream))
+            {
+                stringReader = fileReader.ReadLine();
+                ListBoxEntrada.Items.Add(stringReader);
+            }
         }
 
         private void Cerrado(object sender, FormClosedEventArgs e)
@@ -295,28 +310,25 @@ namespace ProyectoFinalSO2
             Application.Exit();
         }
 
+            //StreamReader Lector = new StreamReader(ArchivoEntrada);
+            //String Linea;
+            //Linea = Lector.ReadLine();
+            //while (Linea != null)
+            //{
+            //    ListBoxEntrada.Items.Add(Linea);
+            //    Linea = Lector.ReadLine();
+            //    Console.WriteLine(Linea);
+            //}
         private void Compilar_Click(object sender, EventArgs e)
         {
-            StreamReader Lector = new StreamReader(ArchivoEntrada);
-            String Linea;
-            Linea = Lector.ReadLine();
-            while (Linea != null)
-            {
-                ListBoxEntrada.Items.Add(Linea);
-                Linea = Lector.ReadLine();
-                Console.WriteLine(Linea);
-            }
-            Lector.Close();
             int Renglon = 0;
             while (Renglon < ListBoxEntrada.Items.Count)
             {
                 ListBoxEntrada.SelectedIndex = Renglon;
                 wlinea = ListBoxEntrada.Text;
-
+                BuscaTokens();
                 Renglon++;
             }
-            Caracter = wlinea.Substring(0, 1);
-            MessageBox.Show(Caracter);
         }
 
         protected void BuscaTokens()
@@ -324,95 +336,331 @@ namespace ProyectoFinalSO2
             estado = 0;
             Token = "";
             Posicion = 1;
-            Caracter = wlinea.Substring(Posicion, 1);
+            while (Posicion <= wlinea.Length())
+            {
+                Caracter = wlinea.Substring(0, 1);
+                MessageBox.Show(Caracter);
+                foreach (char c in Caracter)
+                    ValueCaracter = System.Convert.ToInt32(c);
+                CalcularColumna();
+                estado = Matriz[estado, columna];
+                if (estado >= 100)
+                {
+                    if (Token.Length() >= 0)
+                    {
+                        ReconocerToken();
+                    }
+                    estado = 0;
+                    Token = "";
+                    ListBoxSalida.Items.Add(Token);
+                }
+                else
+                {
+                    if (estado != 0)
+                    {
+                        Token = Token + Caracter;
+                    }
+                }
+                Posicion = Posicion++;
+            }
+            if (Token.Length() > 0)
+            {
+                Caracter = " ";
+                CalcularColumna();
+                estado = Matriz[estado, columna];
+                ReconocerToken();
+            }
         }
 
         protected void CalcularColumna()
         {
-            //if ( Encoding.Unicode.GetBytes(Caracter) >= "A" && Encoding.Unicode.GetBytes(Caracter) <= Encoding.Unicode.GetBytes("Z"))
-            //{
-            //    columna = 0;
-            //}
-            //else if (Encoding.Unicode.GetBytes(Caracter) >= Encoding.Unicode.GetBytes("a") && Encoding.Unicode.GetBytes(Caracter) <= Encoding.Unicode.GetBytes("z"))
-            //{
-            //    columna = 0;
-            //}
-            //else if (Encoding.Unicode.GetBytes(Caracter) >= Encoding.Unicode.GetBytes("0") && Encoding.Unicode.GetBytes(Caracter) <= Encoding.Unicode.GetBytes("9"))
-            //{
-            //    columna = 1;
-            //}
-            //else if (Caracter == ".")
-            //{
-            //    columna = 2;
-            //}
-            //else if (Encoding.Unicode.GetBytes(Caracter) = (char)34)
-            //{
-            //    columna = 3;
-            //}
-            //else if (Caracter == "/")
-            //{
-            //    columna = 4;
-            //}
-            //else if (Caracter == "*")
-            //{
-            //    columna = 5;
-            //}
-            //else if (Caracter == "+")
-            //{
-            //    columna = 6;
-            //}
-            //else if (Caracter == "-")
-            //{
-            //    columna = 7;
-            //}
-            //else if (Caracter == "<")
-            //{
-            //    columna = 8;
-            //}
-            //else if (Caracter == ">")
-            //{
-            //    columna = 9;
-            //}
-            //else if (Caracter == "(")
-            //{
-            //    columna = 10;
-            //}
-            //else if (Caracter == ")")
-            //{
-            //    columna = 11;
-            //}
-            //else if (Caracter == "[")
-            //{
-            //    columna = 12;
-            //}
-            //else if (Caracter == "]")
-            //{
-            //    columna = 13;
-            //}
-            //else if (Caracter == "{")
-            //{
-            //    columna = 14;
-            //}
-            //else if (Caracter == "}")
-            //{
-            //    columna = 15;
-            //}
-            //else if (Caracter == ";")
-            //{
-            //    columna = 16;
-            //}
-            //else if (Caracter == " ")
-            //{
-            //    columna = 17;
-            //}
-            //else if (Caracter == "=")
-            //{
-            //    columna = 18;
-            //}
-            //else if (Caracter == "_")
-            //{
-            //    columna = 19;
-            //}
+            if (ValueCaracter >= System.Convert.ToInt32("A") && ValueCaracter <= System.Convert.ToInt32("Z"))
+            {
+                columna = 0;
+            }
+            else if (ValueCaracter >= System.Convert.ToInt32("a") && ValueCaracter <= System.Convert.ToInt32("z"))
+            {
+                columna = 0;
+            }
+            else if (ValueCaracter >= System.Convert.ToInt32("0") && ValueCaracter <= System.Convert.ToInt32("9"))
+            {
+                columna = 1;
+            }
+            else if (ValueCaracter == System.Convert.ToInt32("."))
+            {
+                columna = 2;
+            }
+            else if (ValueCaracter == System.Convert.ToInt32("\""))
+            {
+                columna = 3;
+            }
+            else if (ValueCaracter == System.Convert.ToInt32("/"))
+            {
+                columna = 4;
+            }
+            else if (ValueCaracter == System.Convert.ToInt32("*"))
+            {
+                columna = 5;
+            }
+            else if (ValueCaracter == System.Convert.ToInt32("+"))
+            {
+                columna = 6;
+            }
+            else if (ValueCaracter == System.Convert.ToInt32("-"))
+            {
+                columna = 7;
+            }
+            else if (ValueCaracter == System.Convert.ToInt32("<"))
+            {
+                columna = 8;
+            }
+            else if (ValueCaracter == System.Convert.ToInt32(">"))
+            {
+                columna = 9;
+            }
+            else if (ValueCaracter == System.Convert.ToInt32("("))
+            {
+                columna = 10;
+            }
+            else if (ValueCaracter == System.Convert.ToInt32(")"))
+            {
+                columna = 11;
+            }
+            else if (ValueCaracter == System.Convert.ToInt32("["))
+            {
+                columna = 12;
+            }
+            else if (ValueCaracter == System.Convert.ToInt32("]"))
+            {
+                columna = 13;
+            }
+            else if (ValueCaracter == System.Convert.ToInt32("{"))
+            {
+                columna = 14;
+            }
+            else if (ValueCaracter == System.Convert.ToInt32("}"))
+            {
+                columna = 15;
+            }
+            else if (ValueCaracter == System.Convert.ToInt32(";"))
+            {
+                columna = 16;
+            }
+            else if (ValueCaracter == System.Convert.ToInt32(" "))
+            {
+                columna = 17;
+            }
+            else if (ValueCaracter == System.Convert.ToInt32("="))
+            {
+                columna = 18;
+            }
+            else if (ValueCaracter == System.Convert.ToInt32("_"))
+            {
+                columna = 19;
+            }
+        }
+
+        protected void ReconocerToken()
+        {
+            if (estado = 100)
+            {
+                PalabraResevada = false;
+                Buscapreservadas();
+                if (PalabraReservada)
+                {
+                    wsalida = Token + " PR " + direccion.ToString();
+                }
+                else
+                {
+                    Buscaidentificadores();
+                    wsalida = Token + " PR " + direccion.ToString();
+                }
+                Posicion = Posicion - 1;
+            }
+            if (estado = 101)
+            {
+                ConstantesEnteras();
+                wSalida = Token + "Ctes.Enteras" + direccion.ToString();
+                Posicion = Posicion - 1;
+            }
+            if (estado = 102)
+            {
+                ConstantesReales();
+                wSalida = Token + "Ctes.Reales" + direccion.ToString();
+                Posicion = Posicion - 1;
+            }
+            if (Estado = 103)
+            {
+                Token = Token + Caracter;
+                ConstantesString();
+                wSalida = Token + "Ctes.String" + direccion.ToString();
+            }
+            if (Estado = 105)
+            {
+                Token = Token + Caracter;
+                wSalida = Token + "Caracter Esp";
+            }
+            if (Estado = 106)
+            {
+                Token = Token + Caracter;
+                wSalida = Token + "Caracter Esp";
+            }
+            if (Estado = 107)
+            {
+                Token = Token + Caracter;
+                wSalida = Token + "Caracter Esp";
+            }
+            if (Estado = 108)
+            {
+                Token = Token + Caracter;
+                wSalida = Token + "Caracter Esp";
+            }
+            if (Estado = 114)
+            {
+                Token = Token + Caracter;
+                wSalida = Token + "Caracter Esp";
+            }
+            if (Estado = 115)
+            {
+                Token = Token + Caracter;
+                wSalida = Token + "Caracter Esp";
+            }
+            if (Estado = 116)
+            {
+                Token = Token + Caracter;
+                wSalida = Token + "Caracter Esp";
+            }
+            if (Estado = 117)
+            {
+                Token = Token + Caracter;
+                wSalida = Token + "Caracter Esp";
+            }
+            if (Estado = 118)
+            {
+                Token = Token + Caracter;
+                wSalida = Token + "Caracter Esp";
+            }
+            if (Estado = 119)
+            {
+                Token = Token + Caracter;
+                wSalida = Token + "Caracter Esp";
+            }
+            if (Estado = 120)
+            {
+                Token = Token + Caracter;
+                wSalida = Token + "Caracter Esp";
+            }
+            if (Estado = 121)
+            {
+                Token = Token + Caracter;
+                wSalida = Token + "Caracter Esp";
+            }
+            if (Estado = 104)
+            {
+                Token = Token + Caracter;
+                wSalida = Token + "Commentario";
+            }
+            ListBoxSalida.Items.Add(wSalida);
+        }
+
+        protected void Buscapreservadas()
+        {
+            int Renglon2 = 0;
+            direccion = -1;
+            while ((!(PalabraReservada)) && (Renglon2 < ListBoxPalabrasReservadas.Items.Count))
+            {
+                ListBoxPalabrasReservadas.SelectedIndex = Renglon2;
+                if (Token.ToUpper() = ListBoxPalabrasReservadas.Text.ToUpper())
+                {
+                    PalabraReservada = true;
+                    direccion = Renglon2;
+                }
+                Renglon2++;
+            }
+        }
+
+        protected void Buscaidentificadores()
+        {
+            int Renglon2 = 0;
+            Encontro = false;
+            while (!Encontro && Renglon2 < ListBoxIDS.Items.Count)
+            {
+                ListBoxIDS.SelectedIndex = Renglon2;
+                if (Token.ToUpper() == ListBoxIDS.Text.ToUpper())
+                {
+                    Encontro = true;
+                    direccion = Renglon2;
+                }
+                Renglon2++;
+            }
+            if (!Encontro)
+            {
+                ListBoxIDS.Items.Add(Token);
+                direccion = ListBoxIDS.Items.Count - 1;
+            }
+        }
+
+        protected void ConstantesEnteras()
+        {
+            int Renglon2 = 0;
+            Encontro = false;
+            while (!(Encontro)) & (Renglon2 < ListBoxEnteras.Items.Count)
+            {
+                ListBoxEnteras.SelectedIndex = Renglon2;
+                if (Token.ToUpper() == ListBoxEnteras.Text.ToUpper())
+                {
+                    Encontro = true;
+                    direccion = Renglon2;
+                }
+                Renglon2 = Renglon2++;
+            }
+            if (!Encontro)
+            {
+                ListBoxEnteras.Items.Add(Token);
+                direccion = ListBoxEnteras.Items.Count - 1;
+            }
+        }
+
+        protected void ConstantesReales()
+        {
+            int Renglon2 = 0;
+            Encontro = False;
+            while ((!Encontro) && (Renglon2 < ListBoxReales.Items.Count))
+            {
+                ListBoxReales.SelectedIndex = Renglon2;
+                if (Token.ToUpper() == ListBoxReales.Text.ToUpper())
+                {
+                    Encontro = true;
+                    direccion = Renglon2;
+                }
+                Renglon2 = Renglon2++;
+            }
+            if (!Encontro)
+            {
+                ListBoxReales.Items.Add(Token);
+                direccion = ListBoxReales.Items.Count - 1;
+            }
+        }
+
+        protected void ConstantesString()
+        {
+            int Renglon2 = 0;
+            Encontro = false;
+            while(!(Encontro)) & (Renglon2 < ListBoxString.Items.Count)
+            {
+                ListBoxString.SelectedIndex = Renglon2;
+                if (Token.ToUpper == ListBoxString.Text.ToUpper)
+                {
+                    Encontro = true;
+                    direccion = Renglon2;
+                }
+                Renglon2 = Renglon2++;
+            }
+            if (!Encontro)
+            {
+                ListBoxString.Items.Add(Token);
+                direccion = ListBoxString.Items.Count - 1;
+            }
         }
     }
 }

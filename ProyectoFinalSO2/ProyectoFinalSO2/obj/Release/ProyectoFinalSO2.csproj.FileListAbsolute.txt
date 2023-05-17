@@ -1,0 +1,8 @@
+C:\Users\Rodrigo Alexis\source\repos\ProyectoFinalSO2\ProyectoFinalSO2\obj\Release\ProyectoFinalSO2.csproj.AssemblyReference.cache
+C:\Users\Rodrigo Alexis\source\repos\ProyectoFinalSO2\ProyectoFinalSO2\obj\Release\ProyectoFinalSO2.csproj.SuggestedBindingRedirects.cache
+C:\Users\Rodrigo Alexis\source\repos\ProyectoFinalSO2\ProyectoFinalSO2\obj\Release\ProyectoFinalSO2.CreateUser.resources
+C:\Users\Rodrigo Alexis\source\repos\ProyectoFinalSO2\ProyectoFinalSO2\obj\Release\ProyectoFinalSO2.Login.resources
+C:\Users\Rodrigo Alexis\source\repos\ProyectoFinalSO2\ProyectoFinalSO2\obj\Release\ProyectoFinalSO2.MainMenu.resources
+C:\Users\Rodrigo Alexis\source\repos\ProyectoFinalSO2\ProyectoFinalSO2\obj\Release\ProyectoFinalSO2.Properties.Resources.resources
+C:\Users\Rodrigo Alexis\source\repos\ProyectoFinalSO2\ProyectoFinalSO2\obj\Release\ProyectoFinalSO2.csproj.GenerateResource.cache
+C:\Users\Rodrigo Alexis\source\repos\ProyectoFinalSO2\ProyectoFinalSO2\obj\Release\ProyectoFinalSO2.csproj.CoreCompileInputs.cache
